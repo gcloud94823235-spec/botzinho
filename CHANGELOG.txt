@@ -1,0 +1,120 @@
+v7.7.2
+- Corrigido falso positivo quando o Lumen do jogador é shiny.
+- A estrela visual agora é procurada somente no HUD do inimigo.
+- Usa prioritariamente a classe oficial battle-monster-hud--enemy.
+- Removido o fallback que procurava ✨ no texto completo da batalha.
+- Na tela de introdução sem HUD inimigo, não classifica shiny pelo DOM.
+- Mantidas as flags oficiais encounter.shiny e battle.enemy.shiny.
+- Diagnóstico inclui enemyHudFound e enemyHudClass.
+
+v7.7.1
+- Shiny elegível não é mais atacado em nenhuma circunstância.
+- A mochila é aberta imediatamente, mesmo com o shiny em 100% de HP.
+- O percentual de HP configurado é ignorado apenas para shiny.
+- A preferência de raridade da Lantern é ignorada para shiny.
+- Usa qualquer Lantern disponível e continua tentando até capturar ou acabar o estoque.
+- Durante transições da interface de captura, o bot aguarda em vez de executar golpe.
+- Se não houver Lantern, pausa o encontro sem atacar o shiny.
+
+v7.7.0
+- Adicionada opção “Capturar apenas Shiny ✨”, ativada por padrão.
+- Captura wild também vem ativada por padrão; com o filtro marcado, encontros normais são apenas derrotados.
+- Shinies são identificados pelo wild encounter oficial, estado da batalha e estrela no nome.
+- Em shiny elegível, o bot enfraquece até o HP configurado e tenta capturar automaticamente.
+- Para shiny, não há limite artificial de tentativas: continua até capturar ou acabar Lantern.
+- Se acabar Lantern durante um shiny, o bot pausa o encontro em vez de continuar atacando.
+- A pausa automática de shiny não bloqueia a captura quando “Capturar apenas Shiny” está ativa.
+
+v7.6.9
+- A ponte da página agora procura diretamente o objeto oficial do wild encounter.
+- Detecta shiny pelo encounter.shiny / encounter.isShiny antes da batalha terminar de abrir.
+- Mantidos battle.enemy.shiny e a estrela ✨ como verificações secundárias.
+- Registra requestId, método, mapa, espécie, forma e origem da detecção.
+- A prioridade de detecção agora é: wild encounter oficial, estado da batalha, estrela no nome.
+
+v7.6.8
+- Corrigido travamento imediatamente após Select Tile.
+- O ponto salvo agora é normalizado para o centro do tile oficial de grid.
+- Select Tile valida se o tile é caminhável e pertence à grass.
+- O pathfinder valida se o tile salvo é alcançável antes de usá-lo.
+- Tile inválido ou desconectado é ignorado na sessão, e o farm normal continua automaticamente.
+- Removida dependência de clicar várias vezes em Limpar Tile para destravar.
+- Rotas do tile selecionado não usam mais um componente de grass antigo/stale.
+
+v7.6.7
+- Restaurado o retorno após wipe pelo pathfinder e catálogo de portais usado antes do Select Tile.
+- Removida a navegação aleatória especial de Tidemarsh durante o retorno.
+- Select Tile não interfere mais em rotas entre mapas.
+- Durante retorno, o pathfinder não força permanência em grass.
+- O portal necessário à rota não é mais bloqueado pela proteção de portal de entrada.
+- Ao detectar wipe, limpa âncora local e supressão de portal antigas.
+- Select Tile volta a ser aplicado somente depois que o mapa original é alcançado.
+
+v7.6.6
+- Corrigida detecção de morte: não depende mais de respawn exclusivo em Bloomvale.
+- Detecta respawn em qualquer cidade/mapa seguro após wipe, inclusive Tidemarsh City.
+- Guarda o mapa e a posição onde a batalha começou antes da morte.
+- Não substitui mais o mapa de farm pelo mapa da cidade durante o respawn.
+- Recalcula a rota desde a posição aleatória da cidade até o mapa original.
+- Ao chegar ao mapa original, ativa o Select Tile daquele mapa e retorna ao ponto absoluto salvo.
+- Evita tentar retornar ao tile salvo da cidade enquanto há retorno de wipe ativo.
+
+v7.6.5
+- Adicionada opção visível “✨ Shiny” em Pausar em encontro wild.
+- A opção vem ativada por padrão.
+- Quando desmarcada, encontros shiny não pausam automaticamente.
+- Mantida a detecção combinada pela flag oficial e pela estrela no nome.
+
+v7.6.4
+- Detecção shiny combinada: flag oficial enemy.shiny / enemy.isShiny e estrela ✨ no nome.
+- A ponte da página agora procura o objeto oficial da batalha no estado React.
+- Reconhece shiny independentemente de espécie, evolução, gênero, nível ou forma/variant.
+- A estrela visual permanece como fallback caso o estado oficial não esteja acessível.
+- Diagnóstico informa shinySource, speciesId, form, gender, fromState e fromStar.
+- Todo shiny wild aciona exatamente a mesma pausa especial dos encontros Tier B+.
+
+v7.6.3
+- Detecta monstro shiny pela estrela ✨ exibida junto ao nome no encontro wild.
+- Remove a estrela e o símbolo de gênero antes de consultar o catálogo de tier.
+- Shiny aciona automaticamente a mesma pausa especial usada nos encontros Tier B+.
+- Ao detectar shiny, interrompe movimento e batalha automática até o usuário pressionar Play/retomar.
+- Diagnóstico registra wild-shiny-pause, espécie, mapa e origem name-star.
+
+v7.6.2
+- Ponte no contexto principal da página para detectar posição mundial e estado da cena sem Chrome Debugger.
+- Select Tile salva somente coordenada absoluta.
+- Removida a dependência de reproduzir WASD após respawn aleatório.
+- Farm ancorado: anda apenas para um tile cardinal de grama e volta ao tile salvo.
+- Retorno após morte recalculado da posição real atual.
+- Sem posição real, o bot para com segurança.
+
+v7.6.1
+- Adicionado botão Select Tile no HUD e no popup.
+- Salva um ponto separado por mapa.
+- Patrulha mínima: um pulso para fora e o inverso imediato para voltar ao centro.
+- Quando há posição oficial, retorna à coordenada exata salva.
+- No modo DOM, grava a rota manual desde a entrada do mapa e a reproduz após retorno.
+- Ao trocar de mapa, ativa o tile salvo daquele mapa ou solicita uma nova seleção.
+
+v7.6.0
+- Corrigido deadlock movement-waiting-position após batalha no modo DOM.
+- Adicionada patrulha positionless em pequenos pulsos reversíveis.
+- Adicionado cooldown de retorno ao mundo após batalha.
+- Reduzido spam runtime-recovered quando debugger está indisponível.
+
+v7.5.7
+- Corrigida patrulha local para permanecer na mesma região conectada de grama.
+- Destinos agora são escolhidos no interior da área selvagem, evitando bordas quando possível.
+- Pathfinder ponderado: grama atual tem prioridade; estrada recebe penalidade e só é usada no retorno.
+- Quando sai da grama, retorna à região alcançável mais próxima em vez de continuar por tiles comuns.
+- Movimento suave alterado para pulsos curtos de 130–220 ms com espera da posição oficial.
+- Conversão posição mundial → grid validada contra os tiles reais do catálogo.
+- Corrigido ciclo de attach/detach do Chrome Debugger e removido listener duplicado.
+- Attach concorrente agora é serializado e não desconecta a aba à força.
+
+v7.5.2
+- Corrigido crash do service worker causado por referência a window em world-catalog.js.
+- Catálogo completo compatível com service worker e página.
+- Painel solicita status imediatamente ao iniciar.
+- Adicionada mensagem explícita quando o serviço da extensão não responde.
+- Mantidas as configurações expandidas/recolhidas conforme ação do usuário.
