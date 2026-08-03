@@ -1,1 +1,28 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="popup.css"></head><body><h1>Lumena Autoplay</h1><div id="status" class="status">Carregando…</div><div id="tileStatus" class="status">Nenhum tile selecionado</div><div class="row"><button id="start" class="green">Play</button><button id="pause">Pause</button><button id="stop" class="red">Parar</button></div><div class="row"><button id="selectTile">Select Tile</button><button id="clearTile">Limpar Tile</button></div><script src="popup.js"></script></body></html>
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>Lumena Autoplay</h1>
+  <div id="status" class="status">Carregando…</div>
+
+  <div id="controls">
+    <button id="start">Play</button>
+    <button id="pause">Pause</button>
+    <button id="stop">Parar</button>
+  </div>
+
+  <div style="margin-top:10px">
+    <button id="selectTile">Select Tile</button>
+    <button id="clearTile">Limpar Tile</button>
+    <button id="selectCrystal">Select Crystal</button>
+    <button id="selectFarm">Save Farm</button>
+  </div>
+
+  <div id="tileStatus" style="margin-top:10px;color:#bcd"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
